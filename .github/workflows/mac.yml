@@ -25,29 +25,24 @@ jobs:
           ls -l /Users/runner/hostedtoolcache/haxe/4.3.4/x64/
           ls -l /Users/runner/hostedtoolcache/neko/2.3.0/x64/
       - name: Checking installed libraries
-        run: |
-          haxelib list
-      - name: Installing Lime
+        run: haxelib list
+      - name: Force install Lime
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
-          haxelib remove lime || true  # Rimuovi lime se esiste
-          haxelib install lime  # Forza l'installazione di Lime
+          haxelib remove lime || true  # Rimuove Lime se esiste
+          haxelib install lime --always  # Forza l'installazione di Lime
       - name: Verify Lime installation
         run: |
           haxelib list | grep lime || echo "Lime is not installed"
       - name: Installing/Updating libraries
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
-          for i in {1..3}; do
-            haxe -cp ./update -D analyzer-optimize -main Update --interp && break || sleep 10
-          done
+          haxe -cp ./update -D analyzer-optimize -main Update --interp
         shell: bash
-        timeout-minutes: 10
       - name: Building the game
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
           haxelib run lime build mac
-        timeout-minutes: 20
       - name: Uploading artifact (entire build)
         uses: actions/upload-artifact@v4.3.3
         with:
