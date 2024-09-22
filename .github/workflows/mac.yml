@@ -27,12 +27,15 @@ jobs:
       - name: Clearing previous installations
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
-          haxelib remove lime || true  # Rimuove Lime se esiste
-          haxelib remove openfl || true  # Rimuove OpenFL se esiste
-      - name: Force install libraries
+          haxelib remove lime || true
+          haxelib remove openfl || true
+      - name: Installing Lime
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
           haxelib install lime --always
+      - name: Installing OpenFL
+        run: |
+          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
           haxelib install openfl --always
       - name: Verify Lime and OpenFL installation
         run: |
