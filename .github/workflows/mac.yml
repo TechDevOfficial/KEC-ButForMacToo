@@ -34,6 +34,9 @@ jobs:
               haxelib install hxvlc
               haxelib install hscript
               haxelib install flixel-text-input
+      - name: Setting up HaxeFlixel
+        run: |
+          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
               haxelib run lime setup
               haxelib run lime setup flixel
               haxelib run flixel-tools setup  
