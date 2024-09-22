@@ -1,0 +1,71 @@
+{
+  "name": "tankman",
+  "asset": ["characters/Tank"],
+  "barColor": "#e1e1e1",
+  "startingAnim": "idle",
+  "holdLength": 4,
+  "camPos":[200,-100],
+  "flipX":true,
+  "healthicon" : "tankman",
+  "animations": [
+    {
+      "name": "idle",
+      "prefix": "Tankman Idle Dance",
+      "offsets": [0, 0],
+      "frameRate": 24,
+      "looped": false
+    },
+    {
+      "name": "singUP",
+      "prefix": "Tankman UP note 1",
+      "offsets": [48, 54],
+      "frameRate": 24,
+      "looped": false
+    },
+    {
+      "name": "singRIGHT",
+      "prefix": "Tankman Note Left 1",
+      "offsets": [-21, -31],
+      "frameRate": 24,
+      "looped": false
+    },
+    {
+      "name": "singLEFT",
+      "prefix": "Tankman Right Note 1",
+      "offsets": [84, -14],
+      "frameRate": 24,
+      "looped": false
+    },
+    {
+      "name": "singDOWN",
+      "prefix": "Tankman DOWN note 1",
+      "offsets": [76, -101],
+      "frameRate": 24,
+      "looped": false
+    },
+    {
+      "name": "ugh",
+      "prefix": "TANKMAN UGH",
+      "offsets": [-15, -8],
+      "frameRate": 24,
+      "looped": false,
+      "nextAnim": "idle"
+    },
+    {
+			"offsets": [1,16],
+			"frameRate": 24,
+			"name": "good",
+			"looped": false,
+      "interrupt": false,
+			"prefix": "PRETTY GOOD tankman"
+		},
+    {
+			"offsets": [1,16],
+			"frameRate": 24,
+			"name": "singDOWN-alt",
+			"looped": false,
+      "interrupt": false,
+			"prefix": "PRETTY GOOD tankman"
+		}
+  ]
+}
