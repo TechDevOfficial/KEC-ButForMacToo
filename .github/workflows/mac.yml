@@ -22,15 +22,12 @@ jobs:
       - name: Setting DYLD_LIBRARY_PATH
         run: echo "DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib" >> $GITHUB_ENV
 
-      - name: Installing Lime
+      - name: Installing main libraries
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
-          haxelib install lime || haxelib install lime  # Prova di nuovo in caso di errore
-
-      - name: Installing OpenFL
-        run: |
-          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
-          haxelib install openfl
+          haxelib install lime || echo "Failed to install lime"
+          haxelib install openfl || echo "Failed to install openfl"
+          haxelib install flixel || echo "Failed to install flixel"
 
       - name: Verifying Libraries
         run: |
