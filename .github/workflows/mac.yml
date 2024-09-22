@@ -12,29 +12,32 @@ jobs:
       - name: Setting up Haxe
         uses: krdlab/setup-haxe@v1.5.1
         with:
-          haxe-version: 4.3.6
+          haxe-version: 4.3.4
 
-      - name: Setting DYLD_FALLBACK_LIBRARY_PATH
-        run: echo "DYLD_FALLBACK_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64" >> $GITHUB_ENV
+      - name: Setting up Neko manually
+        run: |
+          mkdir -p /usr/local/lib
+          ln -sf /Users/runner/hostedtoolcache/neko/2.3.0/x64/libneko.2.dylib /usr/local/lib/libneko.2.dylib
+
+      - name: Setting DYLD_LIBRARY_PATH
+        run: echo "DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib" >> $GITHUB_ENV
 
       - name: Verifying Haxe and Neko installation
         run: |
           haxe -version
           neko -version
-          ls -l /Users/runner/hostedtoolcache/haxe/4.3.6/x64/
+          ls -l /Users/runner/hostedtoolcache/haxe/4.3.4/x64/
           ls -l /Users/runner/hostedtoolcache/neko/2.3.0/x64/
-
-      - name: Print environment variables
-        run: printenv
 
       - name: Installing/Updating libraries
         run: |
-          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64
+          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
           haxe -cp ./update -D analyzer-optimize -main Update --interp
         shell: bash
 
       - name: Building the game
         run: |
+          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
           haxelib run lime build mac
 
       - name: Uploading artifact (entire build)
