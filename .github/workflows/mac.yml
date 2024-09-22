@@ -21,7 +21,18 @@ jobs:
 
       - name: Setting DYLD_LIBRARY_PATH
         run: echo "DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib" >> $GITHUB_ENV
+        
+      - name: Setting up HaxeFlixel
+        run: |
+          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
+          haxelib run lime setup
+          haxelib run lime setup flixel
 
+      - name: Setting up Flixel Tools
+        run: |
+          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
+          echo "y" | haxelib run flixel-tools setup || echo "Flixel Tools setup failed"
+          
       - name: Installing main libraries
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
@@ -51,16 +62,8 @@ jobs:
             haxelib git haxeui-flixel https://github.com/haxeui/haxeui-flixel.git --skip-dependencies
             haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit.git
             haxelib git hxdiscord_rpc https://github.com/MAJigsaw77/hxdiscord_rpc.git
-      - name: Setting up HaxeFlixel
-        run: |
-          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
-          haxelib run lime setup
-          haxelib run lime setup flixel
 
-      - name: Setting up Flixel Tools
-        run: |
-          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
-          haxelib run flixel-tools setup || echo "Flixel Tools setup failed"
+
 
       - name: Building the game
         run: |
