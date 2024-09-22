@@ -24,7 +24,7 @@ jobs:
         with:
           haxe-version: 4.3.4
 
-      # 3. Cache Haxelib libraries
+      # 3. Restore Haxelib Cache
       - name: Restore Haxelib Cache
         uses: actions/cache@v4.0.2
         with:
@@ -33,20 +33,20 @@ jobs:
           restore-keys: |
             macos-haxelib-cache-${{ runner.os }}
 
-      # 4. Install/Update libraries
+      # 4. Install or Update Libraries
       - name: Install or Update Libraries
         run: |
           haxe -cp ./update -D analyzer-optimize -main Update --interp --verbose
         shell: bash
         timeout-minutes: 10
 
-      # 5. Build the game
+      # 5. Build the Game
       - name: Build the Game
         run: |
           haxelib run lime build mac --verbose
         timeout-minutes: 20
 
-      # 6. Upload build artifact
+      # 6. Upload Build Artifact
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4.3.3
         with:
@@ -54,7 +54,7 @@ jobs:
           path: export/release/macos/bin
           retention-days: 5
 
-      # 7. Clear existing cache (if needed)
+      # 7. Clear Existing Cache (Optional)
       - name: Clear Cache
         uses: actions/github-script@v7.0.1
         with:
@@ -75,7 +75,7 @@ jobs:
               }
             }
 
-      # 8. Upload new cache
+      # 8. Upload New Cache
       - name: Upload New Cache
         uses: actions/cache@v4.0.2
         with:
