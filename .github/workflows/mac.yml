@@ -12,7 +12,7 @@ jobs:
       - name: Setting up Haxe
         uses: krdlab/setup-haxe@v1.5.1
         with:
-          haxe-version: 4.3.4
+          haxe-version: 4.3.4  # Utilizza Haxe 4.3.4
 
       - name: Setting up Neko manually
         run: |
