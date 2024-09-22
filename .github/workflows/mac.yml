@@ -8,10 +8,12 @@ jobs:
     steps:
       - name: Pulling the new commit
         uses: actions/checkout@v4.1.6
+
       - name: Setting up Haxe
         uses: krdlab/setup-haxe@v1.5.1
         with:
           haxe-version: 4.3.6
+
       - name: Restore existing build cache for faster compilation
         uses: actions/cache@v4.0.2
         with:
@@ -22,20 +24,31 @@ jobs:
             export/release/macos/obj/
           restore-keys: |
             cache-build-macos
-      - name: Setting DYLD_LIBRARY_PATH
-        run: echo "DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64" >> $GITHUB_ENV
+
+      - name: Setting DYLD_FALLBACK_LIBRARY_PATH
+        run: echo "DYLD_FALLBACK_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64" >> $GITHUB_ENV
+
+      - name: Verifying libneko.2.dylib
+        run: |
+          ls -l /Users/runner/hostedtoolcache/haxe/4.3.6/x64/
+          ls -l /Users/runner/hostedtoolcache/neko/2.3.0/x64/
+
       - name: Installing/Updating libraries
         run: |
+          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64
           haxe -cp ./update -D analyzer-optimize -main Update --interp
-        shell: bash        
+        shell: bash
+
       - name: Building the game
         run: |
           haxelib run lime build mac
+
       - name: Uploading artifact (entire build)
         uses: actions/upload-artifact@v4.3.3
         with:
           name: Kade Engine Community
           path: export/release/macos/bin
+
       - name: Clearing already existing cache
         uses: actions/github-script@v7.0.1
         with:
@@ -55,6 +68,7 @@ jobs:
                 console.log("Cache cleared.")
               }
             }
+
       - name: Uploading new cache
         uses: actions/cache@v4.0.2
         with:
