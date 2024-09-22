@@ -14,24 +14,18 @@ jobs:
         with:
           haxe-version: 4.3.6
 
-      - name: Restore existing build cache for faster compilation
-        uses: actions/cache@v4.0.2
-        with:
-          key: cache-build-macos
-          path: |
-            .haxelib/
-            export/release/macos/haxe/
-            export/release/macos/obj/
-          restore-keys: |
-            cache-build-macos
-
       - name: Setting DYLD_FALLBACK_LIBRARY_PATH
         run: echo "DYLD_FALLBACK_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64" >> $GITHUB_ENV
 
-      - name: Verifying libneko.2.dylib
+      - name: Verifying Haxe and Neko installation
         run: |
+          haxe -version
+          neko -version
           ls -l /Users/runner/hostedtoolcache/haxe/4.3.6/x64/
           ls -l /Users/runner/hostedtoolcache/neko/2.3.0/x64/
+
+      - name: Print environment variables
+        run: printenv
 
       - name: Installing/Updating libraries
         run: |
