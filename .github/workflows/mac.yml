@@ -13,7 +13,6 @@ jobs:
         uses: krdlab/setup-haxe@v1.5.1
         with:
           haxe-version: 4.3.4  # Utilizza Haxe 4.3.4
-
       - name: Setting up Neko manually
         run: |
           mkdir -p /usr/local/lib
@@ -21,18 +20,7 @@ jobs:
 
       - name: Setting DYLD_LIBRARY_PATH
         run: echo "DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib" >> $GITHUB_ENV
-        
-      - name: Setting up HaxeFlixel
-        run: |
-          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
-          haxelib run lime setup
-          haxelib run lime setup flixel
 
-      - name: Setting up Flixel Tools
-        run: |
-          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
-          echo "y" | haxelib run flixel-tools setup || echo "Flixel Tools setup failed"
-          
       - name: Installing main libraries
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
@@ -45,6 +33,19 @@ jobs:
           haxelib install hxvlc
           haxelib install hscript
           haxelib install flixel-text-input
+        
+      - name: Setting up HaxeFlixel
+        run: |
+          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
+          haxelib run lime setup
+          haxelib run lime setup flixel
+
+      - name: Setting up Flixel Tools
+        run: |
+          export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
+          echo "y" | haxelib run flixel-tools setup || echo "Flixel Tools setup failed"
+          
+
 
       - name: Verifying Libraries
         run: |
