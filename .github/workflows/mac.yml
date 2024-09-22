@@ -25,12 +25,12 @@ jobs:
       - name: Installing Lime
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
-          haxelib install lime --verbose || echo "Lime installation failed"
+          haxelib install lime || haxelib install lime  # Prova di nuovo in caso di errore
 
       - name: Installing OpenFL
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
-          haxelib install openfl --verbose || echo "OpenFL installation failed"
+          haxelib install openfl
 
       - name: Verifying Libraries
         run: |
@@ -39,7 +39,7 @@ jobs:
       - name: Building the game
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
-          haxelib run lime build mac --verbose || echo "Build failed"
+          haxelib run lime build mac || echo "Build failed"
 
       - name: Uploading artifact (entire build)
         uses: actions/upload-artifact@v4.3.3
