@@ -27,7 +27,8 @@ jobs:
       - name: Installing Lime
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
-          haxelib install lime
+          haxelib remove lime || true  # Rimuovi lime se esiste
+          haxelib install lime --always  # Forza l'installazione
       - name: Installing/Updating libraries
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
