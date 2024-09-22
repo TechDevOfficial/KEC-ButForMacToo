@@ -28,6 +28,7 @@ jobs:
           haxelib install lime || echo "Failed to install lime"
           haxelib install openfl || echo "Failed to install openfl"
           haxelib install flixel || echo "Failed to install flixel"
+          haxelib install flixel-addons || echo "Failed to install flixel-addons"
 
       - name: Verifying Libraries
         run: |
