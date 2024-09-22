@@ -27,6 +27,7 @@ jobs:
       - name: Installing/Updating libraries
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
+          haxelib install lime
           for i in {1..3}; do
             haxe -cp ./update -D analyzer-optimize -main Update --interp && break || sleep 10
           done
