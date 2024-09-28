@@ -55,8 +55,6 @@ jobs:
         run: |
           export DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib
           echo "y" | haxelib run flixel-tools setup || echo "Flixel Tools setup failed"
-          
-
 
       - name: Verifying Libraries
         run: |
@@ -74,8 +72,6 @@ jobs:
             haxelib git haxeui-flixel https://github.com/haxeui/haxeui-flixel.git --skip-dependencies
             haxelib git linc_luajit https://github.com/nebulazorua/linc_luajit.git
             haxelib git hxdiscord_rpc https://github.com/MAJigsaw77/hxdiscord_rpc.git
-
-
 
       - name: Building the game
         run: |
