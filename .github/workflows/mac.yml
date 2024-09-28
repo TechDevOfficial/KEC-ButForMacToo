@@ -18,6 +18,17 @@ jobs:
           mkdir -p /usr/local/lib
           ln -sf /Users/runner/hostedtoolcache/neko/2.3.0/x64/libneko.2.dylib /usr/local/lib/libneko.2.dylib
 
+      - name: Caching, Fixing Slow Compilation
+        uses: actions/cache@v3
+        with:
+          key: cache-build-mac
+          path: |
+            .haxelib/
+            export/release/macos/haxe/
+            export/release/macos/obj/
+          restore-keys: |
+            cache-build-mac
+
       - name: Setting DYLD_LIBRARY_PATH
         run: echo "DYLD_LIBRARY_PATH=/Users/runner/hostedtoolcache/neko/2.3.0/x64:/usr/local/lib" >> $GITHUB_ENV
 
